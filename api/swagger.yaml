@@ -1,0 +1,140 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: Hall Of Fame
+  description: Simple Highscore Application
+host: lvh.me:3000
+basePath: /api/v1
+schemes:
+  - http
+  - https
+produces:
+  - application/json
+
+paths:
+  /scores:
+    get:
+      tags: [scores]
+      description: return a list of scores
+      operationId: findScores
+      parameters:
+        - name: $skip
+          in: query
+          type: number
+        - name: $top
+          in: query
+          type: number
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Score"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/Fault"
+    post: 
+      tags: [scores]
+      description: create a new score
+      operationId: createScore
+      parameters:
+        - name: score
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/Score"
+      responses:
+        "201":
+          description: created successfully
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/Fault"
+  /scores/{id}:
+    get:
+      tags: [scores]
+      description: get an existing score
+      operationId: getScore
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+      responses:
+        '200': 
+          description: Success
+          schema:
+            $ref: "#/definitions/Score"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/Fault"
+    put: 
+      tags: [scores]
+      description: update an existing score
+      operationId: updateScore
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: score
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/Score"
+      responses:
+        '204': 
+          description: Success
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/Fault"
+    delete: 
+      tags: [scores]
+      description: remove an existing score
+      operationId: removeScore
+      parameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+      responses:
+        '204': 
+          description: Success
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/Fault"
+  
+definitions:
+  Score:
+    required:
+      - player
+      - points
+    properties:
+      player:
+        type: string
+      points:
+        type: number
+        format: integer
+      _id:
+        type: string
+    example:
+      player: Skittlers
+      points: 450
+    example:
+      player: Nine Pins
+      points: 369
+  Fault:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+      code:
+        type: string
+      error:
+        type: object

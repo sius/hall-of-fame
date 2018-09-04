@@ -1,0 +1,6 @@
+config/
+db/
+highscore-client/
+highscore-server/
+.profile/
+.idea/
