@@ -25,6 +25,7 @@ swagger-nodegen-cli generate \
 
 cd highscore-server
 npm install
+npm audit fix
 npm install nedb
 ```
 
@@ -34,11 +35,12 @@ npm install nedb
 Generate Angular Application
 ```
 ng new highscore-client
-npm install
+cd highscore-client
+npm audit fix
 ng serve
 ```
 
-## Highscore Data Service Module (<= 5min)
+## Highscore Service Module (<= 5min)
 
 ```
 mkdir config
@@ -49,7 +51,7 @@ swagger-nodegen-cli config-help \
 
 swagger-nodegen-cli generate \
   -i ./api/swagger.yaml \
-  -o ./highscore-client/src/lib/highscore-data-service \
+  -o ./highscore-client/src/lib/highscore-service \
   -c ./config/typescript-angular.json \
   -l typescript-angular
 ```
@@ -59,11 +61,12 @@ Implement Angular Client using the data service module and the highscore-server
 
 ```
 npm i rxjs-compat
+npm audit fix
 ```
 `Live Coding`
 
 
-## Highscore server - Part 2 (<= 5min)
+## Highscore Server - Part 2 (<= 5min)
 Update with express middleware and restart server
 ```
 cd ./highscore-server
