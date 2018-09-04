@@ -1,6 +1,6 @@
-# Welcome to The Hall Of Fame (<= 90min)
+# Welcome to "The Hall Of Fame" (<= 90min)
 
-Storyboard for a simple highscore application using the **API first (top-down)**-strategy.
+Storyboard for a simple highscore application using the **API first (top-down)**-approach.
 
 ## The API (<= 5min)
 ```
