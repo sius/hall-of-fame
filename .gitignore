@@ -1,6 +1,6 @@
 config/
 db/
 highscore-client/
-highscore-server/
+# highscore-server/
 .profile/
 .idea/

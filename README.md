@@ -25,6 +25,7 @@ swagger-nodegen-cli generate \
 
 cd highscore-server
 npm install
+npm audit fix
 npm install nedb
 ```
 

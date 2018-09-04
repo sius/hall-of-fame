@@ -1,0 +1,149 @@
+---
+swagger: "2.0"
+info:
+  description: "Simple Highscore Application"
+  version: "1.0.0"
+  title: "Hall Of Fame"
+host: "localhost:3000"
+basePath: "/api/v1"
+schemes:
+- "http"
+- "https"
+produces:
+- "application/json"
+paths:
+  /scores:
+    get:
+      tags:
+      - "scores"
+      description: "return a list of scores"
+      operationId: "findScores"
+      parameters:
+      - name: "$skip"
+        in: "query"
+        required: false
+        type: "number"
+      - name: "$top"
+        in: "query"
+        required: false
+        type: "number"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Score"
+        default:
+          description: "Error"
+          schema:
+            $ref: "#/definitions/Fault"
+      x-swagger-router-controller: "Scores"
+    post:
+      tags:
+      - "scores"
+      description: "create a new score"
+      operationId: "createScore"
+      parameters:
+      - in: "body"
+        name: "score"
+        required: true
+        schema:
+          $ref: "#/definitions/Score"
+      responses:
+        201:
+          description: "created successfully"
+        default:
+          description: "Error"
+          schema:
+            $ref: "#/definitions/Fault"
+      x-swagger-router-controller: "Scores"
+  /scores/{id}:
+    get:
+      tags:
+      - "scores"
+      description: "get an existing score"
+      operationId: "getScore"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/Score"
+        default:
+          description: "Error"
+          schema:
+            $ref: "#/definitions/Fault"
+      x-swagger-router-controller: "Scores"
+    put:
+      tags:
+      - "scores"
+      description: "update an existing score"
+      operationId: "updateScore"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "score"
+        required: true
+        schema:
+          $ref: "#/definitions/Score"
+      responses:
+        204:
+          description: "Success"
+        default:
+          description: "Error"
+          schema:
+            $ref: "#/definitions/Fault"
+      x-swagger-router-controller: "Scores"
+    delete:
+      tags:
+      - "scores"
+      description: "remove an existing score"
+      operationId: "removeScore"
+      parameters:
+      - name: "id"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "Success"
+        default:
+          description: "Error"
+          schema:
+            $ref: "#/definitions/Fault"
+      x-swagger-router-controller: "Scores"
+definitions:
+  Score:
+    required:
+    - "player"
+    - "points"
+    properties:
+      player:
+        type: "string"
+      points:
+        type: "number"
+        format: "integer"
+      _id:
+        type: "string"
+    example:
+      player: "Nine Pins"
+      points: 369
+  Fault:
+    required:
+    - "message"
+    properties:
+      message:
+        type: "string"
+      code:
+        type: "string"
+      error:
+        type: "object"
+        properties: {}
