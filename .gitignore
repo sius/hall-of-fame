@@ -2,5 +2,6 @@ config/
 db/
 highscore-client/
 # highscore-server/
+highscore-server/node_modules/
 .profile/
 .idea/
