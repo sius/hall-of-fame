@@ -1,5 +1,11 @@
 'use strict';
 
+var Datasource = require('nedb')
+  , db = new Datasource({
+    filename: '../db/scores.db',
+    autoload: true
+  })
+  , rwc = require('../utils/writer').respondWithCode;
 
 /**
  * create a new score
@@ -9,7 +15,12 @@
  **/
 exports.createScore = function(score) {
   return new Promise(function(resolve, reject) {
-    resolve();
+    db.insert(score, (err, doc) => {
+      if (err) {
+        reject(rwc(500, { message: 'unable to insert score', error: err }));
+      }
+      resolve(rwc(201, null));
+    })
   });
 }
 
@@ -23,19 +34,12 @@ exports.createScore = function(score) {
  **/
 exports.findScores = function($skip,$top) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = [ {
-  "player" : "Nine Pins",
-  "points" : 369
-}, {
-  "player" : "Nine Pins",
-  "points" : 369
-} ];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
+    db.find({}).sort({ points: -1 }).skip($skip).limit($top).exec(function(err, docs) {
+      if (err) {
+        reject(rwc(500, { message: 'unexpected error', error: err }));
+      }
+      resolve(rwc(200, docs));
+    });
   });
 }
 
@@ -48,16 +52,12 @@ exports.findScores = function($skip,$top) {
  **/
 exports.getScore = function(id) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "player" : "Nine Pins",
-  "points" : 369
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
+    db.findOne({_id: id}, {}, (err, doc) => {
+      if (err) {
+        reject(rwc(404, { message: 'object not found', error: err }));
+      }
+      resolve(rwc(200, doc));
+    })
   });
 }
 
@@ -70,7 +70,12 @@ exports.getScore = function(id) {
  **/
 exports.removeScore = function(id) {
   return new Promise(function(resolve, reject) {
-    resolve();
+    db.remove({_id: id}, (err, numRemoved) => {
+      if (err) {
+        reject(rwc(404, { message: 'object not found', error: err }));
+      }
+      resolve(rwc(204, null));
+    })
   });
 }
 
@@ -84,7 +89,11 @@ exports.removeScore = function(id) {
  **/
 exports.updateScore = function(id,score) {
   return new Promise(function(resolve, reject) {
-    resolve();
+    db.update({_id: id}, score, {}, (err, numChanged) => {
+      if (err) {
+        reject(rwc(404, { message: 'object not found', error: err }));
+      }
+      resolve(rwc(204, null));
+    })
   });
 }
-
