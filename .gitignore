@@ -1,7 +1,7 @@
 config/
 db/
-highscore-client/
+_highscore-client/
 # highscore-server/
-highscore-server/node_modules/
+**/node_modules/
 .profile/
 .idea/
