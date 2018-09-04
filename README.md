@@ -61,11 +61,12 @@ Implement Angular Client using the data service module and the highscore-server
 
 ```
 npm i rxjs-compat
+npm audit fix
 ```
 `Live Coding`
 
 
-## Highscore server - Part 2 (<= 5min)
+## Highscore Server - Part 2 (<= 5min)
 Update with express middleware and restart server
 ```
 cd ./highscore-server
