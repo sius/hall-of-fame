@@ -74,3 +74,14 @@ npm i express cors helmet
 ```
 
 `Live Coding`
+
+
+## Highscore Client - Part 3 (optional)
+Add custom Style (e.g. bootstrap), use CSS preprocessors (e.g. LESS)
+
+```
+npm i bootstrap
+ng config schematics.@schematics/angular:component.styleext less
+```
+
+`Live Coding`
