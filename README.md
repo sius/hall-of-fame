@@ -62,6 +62,7 @@ Implement Angular Client using the data service module and the highscore-server
 ```
 npm i rxjs-compat
 npm audit fix
+ng g c scores
 ```
 `Live Coding`
 

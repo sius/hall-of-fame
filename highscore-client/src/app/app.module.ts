@@ -4,10 +4,12 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { ApiModule as HighscoreServiceModule, BASE_PATH } from '../lib/highscore-service';
+import { ScoresComponent } from './scores/scores.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ScoresComponent
   ],
   imports: [
     BrowserModule,

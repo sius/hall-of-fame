@@ -1,0 +1,23 @@
+<div>
+  <table>
+    <thead>
+      <th>Rank</th>
+      <th>Player</th>
+      <th>Points</th>
+      <th>Actions</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let score of scores; index as rank">
+        <td>{{rank + skip + 1}}</td>
+        <td><input [(ngModel)]="score.player"></td>
+        <td><input type="number" [(ngModel)]="score.points"></td>
+        <td>
+          <button (click)="save(score)">Save</button>
+          <button (click)="remove(score)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button type="submit" (click)="create()">New Score</button>
+</div>
