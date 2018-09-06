@@ -1,6 +1,8 @@
 # Welcome to "The Hall Of Fame" (<= 90min)
 
-Storyboard for a simple highscore application using the **API first (top-down)**-approach.
+Presentation storyboard for a simple highscore application using the **API first (top-down)** approach.
+
+## Intro and promo
 
 ## The API (<= 5min)
 ```
