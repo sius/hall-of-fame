@@ -3,7 +3,7 @@ info:
   version: "1.0.0"
   title: Hall Of Fame
   description: Simple Highscore Application
-host: lvh.me:3000
+host: localhost:3000
 basePath: /api/v1
 schemes:
   - http
