@@ -77,7 +77,7 @@ npm i express cors helmet
 `Live Coding`
 
 
-## Highscore Server - Run Tests
+## Highscore Server - Create Tests
 
 Install dev dependencies
 
