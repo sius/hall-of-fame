@@ -77,7 +77,7 @@ npm i express cors helmet
 `Live Coding`
 
 
-## Highscore Server - Create Tests
+## Highscore Server - Create Tests (~60 min)
 
 Install dev dependencies
 
@@ -86,7 +86,7 @@ npm i -D supertest mocha chai faker
 
 ```
 
-`Live Coding`
+`Example`
 
 ```
 cd ./highscore-server
