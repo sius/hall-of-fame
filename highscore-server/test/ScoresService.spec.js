@@ -4,9 +4,9 @@ var ScoresService = require('../service/ScoresService'),
   supertest = require('supertest'),
   expect = require('chai').expect,
   faker = require('faker'),
-  LOG_FLAG = false,
+  verbose = process.env.VERBOSE_TEST || 'false',
   log = (message) => {
-    if (LOG_FLAG) {
+    if (verbose.toLowerCase() === 'true') {
       console.log(message)
     }
   };
@@ -66,7 +66,7 @@ describe("HTTP Request", () => {
       
       var Score = {
         player1: faker.name.findName(),
-        points: faker.random.number({ min: 0, max: 10000 })
+        points: null
       }
       
       request.post('/api/v1/scores')
@@ -82,7 +82,17 @@ describe("HTTP Request", () => {
           expect(fault.message).equals('Missing required property: player')
           expect(fault.code).equals('OBJECT_MISSING_REQUIRED_PROPERTY')
           expect(fault.error.failedValidation).is.true;
+          
+          var err0 = fault.error.results.errors[0];
+          var err1 = fault.error.results.errors[1];
+          expect(err0.code).equals('OBJECT_MISSING_REQUIRED_PROPERTY')
+          expect(err0.message).equals('Missing required property: player');
+          expect(err1.code).equals('INVALID_TYPE');
+          expect(err1.message).equals('Expected type number but found type null');
+
           log(fault)
+          log(fault.error.results)
+
           done();
         })
     })

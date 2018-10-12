@@ -6,7 +6,7 @@
   "scripts": {
     "_prestart": "npm install",
     "start": "DB_FILE=./db/scores.db node index.js",
-    "test": "NODE_ENV=test DB_FILE=./db/test.db mocha --exit ./test/**/*.spec.js"
+    "test": "NODE_ENV=test VERBOSE_TEST=false DB_FILE=./db/test.db mocha --exit ./test/**/*.spec.js"
   },
   "keywords": [
     "swagger"
