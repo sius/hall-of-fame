@@ -4,8 +4,9 @@
   "description": "Simple Highscore Application",
   "main": "index.js",
   "scripts": {
-    "prestart": "npm install",
-    "start": "node index.js"
+    "_prestart": "npm install",
+    "start": "DB_FILE=./db/scores.db node index.js",
+    "test": "NODE_ENV=test DB_FILE=./db/test.db mocha --exit ./test/**/*.spec.js"
   },
   "keywords": [
     "swagger"
@@ -20,5 +21,11 @@
     "js-yaml": "^3.3.0",
     "nedb": "^1.8.0",
     "swagger-tools": "^0.10.4"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "faker": "^4.1.0",
+    "mocha": "^5.2.0",
+    "supertest": "^3.3.0"
   }
 }

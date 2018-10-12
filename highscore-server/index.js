@@ -4,12 +4,13 @@ var fs = require('fs'),
     path = require('path'),
     http = require('http'),
     cors = require('cors'),
-    helmet = require('helmet');
+    helmet = require('helmet'),
+    fault = require('./lib/fault')
 
 var app = require('express')();
 var swaggerTools = require('swagger-tools');
 var jsyaml = require('js-yaml');
-var serverPort = 3000;
+var serverPort = process.env.PORT || 3000;
 
 // swaggerRouter configuration
 var options = {
@@ -31,7 +32,8 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
   app.use(middleware.swaggerMetadata());
 
   // Validate Swagger requests
-  app.use(middleware.swaggerValidator());
+  app.use(middleware.swaggerValidator(), fault());
+  
 
   // Route validated requests to appropriate controller
   app.use(middleware.swaggerRouter(options));
@@ -39,6 +41,9 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
   // Serve the Swagger documents and Swagger UI
   app.use(middleware.swaggerUi());
 
+  if (process.env.NODE_ENV === 'test') {
+    return;
+  }
   // Start the server
   http.createServer(app).listen(serverPort, function () {
     console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
@@ -46,3 +51,7 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
   });
 
 });
+
+if (process.env.NODE_ENV === 'test') {
+  module.exports.app = app;
+}

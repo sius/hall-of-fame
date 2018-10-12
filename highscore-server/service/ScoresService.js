@@ -1,11 +1,11 @@
 'use strict';
 
 var Datasource = require('nedb')
-  , db = new Datasource({
-    filename: '../db/scores.db',
-    autoload: true
-  })
-  , rwc = require('../utils/writer').respondWithCode;
+  , rwc = require('../utils/writer').respondWithCode
+  , dbFile = process.env.DB_FILE || '../db/scores.db'
+  , db = (process.env.DB_FILE )
+    ? new Datasource({ filename: dbFile, autoload: true })
+    : new Datasource()
 
 /**
  * create a new score
@@ -56,7 +56,7 @@ exports.getScore = function(id) {
       if (err) {
         reject(rwc(404, { message: 'object not found', error: err }));
       }
-      resolve(rwc(200, doc));
+      resolve(rwc(doc ? 200 : 404, doc));
     })
   });
 }
@@ -74,7 +74,7 @@ exports.removeScore = function(id) {
       if (err) {
         reject(rwc(404, { message: 'object not found', error: err }));
       }
-      resolve(rwc(204, null));
+      resolve(rwc(numRemoved === 1 ? 204 : 404, null));
     })
   });
 }
@@ -93,7 +93,7 @@ exports.updateScore = function(id,score) {
       if (err) {
         reject(rwc(404, { message: 'object not found', error: err }));
       }
-      resolve(rwc(204, null));
+      resolve(rwc(numChanged === 1 ? 204 : 404, null));
     })
   });
 }
