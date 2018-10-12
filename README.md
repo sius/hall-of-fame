@@ -75,3 +75,20 @@ npm i express cors helmet
 ```
 
 `Live Coding`
+
+
+## Highscore Server - Run Tests
+
+Install dev dependencies
+
+```
+npm i -D supertest mocha chai faker
+
+```
+
+`Live Coding`
+
+```
+cd ./highscore-server
+npm test
+```
