@@ -4,3 +4,4 @@ highscore-client/
 highscore-server/
 .profile/
 .idea/
+*/node_modules/
