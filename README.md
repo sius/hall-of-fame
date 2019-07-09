@@ -12,7 +12,7 @@ cd hall-of-fame
 
 ## Install Some Npm Tools Globally (<= 5min)
 ```
-npm i -g swagger-nodegen-cli
+npm i -g swagger-nodegen-cli@2.4.4
 npm i -g @angular/cli
 ```
 
